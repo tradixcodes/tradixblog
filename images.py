@@ -1,19 +1,14 @@
 import os
 import re
 import shutil
-from pathlib import Path
+from load_env import load_env, get_env
 
-# Check if paths were loaded
-def require_env(var):
-    value = os.getenv(var)
-    if not value:
-        raise ValueError(f"{var} is not set. Did you run 'source env.sh'?")
-    return Path(value)
+load_env()
 
 # Paths
-posts_dir = Path(os.getenv("POSTS_DIR"))
-attachments_dir = Path(os.getenv("ATTACHMENTS_DIR"))
-static_images_dir = Path(os.getenv("STATIC_IMAGES_DIR"))
+posts_dir = get_env("POSTS_DIR")
+attachments_dir = get_env("ATTACHMENTS_DIR")
+static_images_dir = get_env("STATIC_IMAGES_DIR")
 
 # Step 1: Process each markdown file in the posts directory
 for filename in os.listdir(posts_dir):
